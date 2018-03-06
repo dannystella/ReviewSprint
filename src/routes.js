@@ -24,7 +24,13 @@ Goal.AddNewGoal('do well', 'be awesome').then(function(data){
   console.log("hit")
 })
 
-
+router.get('/:id', function(req, res){
+  var id = req.params.id;
+Goal.findById(id).then(function(data){
+  console.log(data);
+})
+  console.log("hit")
+})
 
 
 

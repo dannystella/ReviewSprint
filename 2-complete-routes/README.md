@@ -16,7 +16,7 @@ In this sprint, set up a server which will serve up the client application and p
 | POST | /goals | Adds a new Goal to the Goals table |
 | GET | /goals/:id | Returns details of a single Goal |
 
-- [ ] Implement at least two tests in server-spec.js. You may use the example test to guide you.
+- [x] Implement at least two tests in server-spec.js. You may use the example test to guide you.
 
 ### Tips
 - Test whether your server behaves as expected in Postman.
