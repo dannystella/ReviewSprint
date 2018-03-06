@@ -4,7 +4,8 @@
   "description": "Hack Reactor Solo Project",
   "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run build",
+    "build": "webpack -p && webpack-dev-server"
   },
   "author": "Joseph Martin <jpranaymartin@gmail.com>",
   "license": "ISC",
@@ -25,8 +26,9 @@
     "babel-loader": "^6.4.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "webpack": "^2.2.1",
     "supertest": "^1.1.0",
-    "tape": "^4.4.0"
+    "tape": "^4.4.0",
+    "webpack": "^2.7.0",
+    "webpack-cli": "^2.0.10"
   }
 }

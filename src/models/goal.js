@@ -2,8 +2,8 @@ var db = require('./db');
 
 var Goal = {};
 
-Goal.AddNewGoal = function(goal, description, complete) {
-  return db('goals').insert({ goal: goal, description: description, complete: complete})
+Goal.AddNewGoal = function(goal, description) {
+  return db('goals').insert({ goal: goal, description: description, complete: false})
     .then(function(goal) {
       console.log(goal);
     })
@@ -33,7 +33,13 @@ Goal.updateById = function(id, complete) {
 }; 
 
 Goal.findAllByUser = function(username) {
-    return db('goals').where({usersid : users.id}).select("*");
+    return db('goals').select("*").where({usersid : "users.id"})
+      .then(function(goal) {
+      return goal;
+    })
+    .catch(function(err) {
+      console.error(err)
+    });
 }
 
 

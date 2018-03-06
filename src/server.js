@@ -1,8 +1,10 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var Goals = require('./routes.js')
 
+// console.log(Goals)
 var app = express();
-
+app.use('/goals', Goals)
 // TODO: SET UP SERVER
 app.use(bodyParser.json())
   // Add middleware

@@ -1,8 +1,35 @@
 var router = require('express').Router();
 var jwt = require('jwt-simple'); // for encoding and decoding tokens
+var bodyParser = require('body-parser');
 
+
+var User = require('./models/user.js')
+var Goal = require('./models/goal.js')
 // TODO: ATTACH ROUTE HANDLERS
   // See 2-complete-routes/README.md for which routes you should implement first.
+router.use(bodyParser.json())
+
+router.get('/', function(req, res){
+Goal.findAllByUser().then(function(data){
+  console.log(data);
+})
+  console.log("hit")
+})
+
+router.post('/', function(req, res){
+Goal.AddNewGoal('do well', 'be awesome').then(function(data){
+  console.log(data);
+          res.end()
+})
+  console.log("hit")
+})
+
+
+
+
+
+
+
 
 
 router.post('/signup', function() {
