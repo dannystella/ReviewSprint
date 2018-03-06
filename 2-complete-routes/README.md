@@ -4,7 +4,7 @@ In this sprint, set up a server which will serve up the client application and p
 
 ## Bare Minimum Requirements
 
-- [ ] Set up static file service in server.js and make sure you are serving the contents of the client directory.
+- [x] Set up static file service in server.js and make sure you are serving the contents of the client directory.
   - Make sure you have also set up service of modules installed via npm.
   - TIP: If you are unable to figure out how to serve Node modules, you may use CDNs to load libraries like Angular during the next sprint.
 - [ ] Import models into routes.js

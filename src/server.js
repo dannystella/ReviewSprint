@@ -4,7 +4,9 @@ var bodyParser = require('body-parser');
 var app = express();
 
 // TODO: SET UP SERVER
+app.use(bodyParser.json())
   // Add middleware
+app.use(express.static('./client/react-client/dist/')); 
   // Add static file service
   // Add API routes
 
