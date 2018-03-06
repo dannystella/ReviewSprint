@@ -24,12 +24,15 @@ getGoals(){
   })
 }
 
-postGoals(goalObj){
-  console.log(goalObj)
-  // axios.post('/goals', goalObj)
-  // .then((data) => {
-  //   console.log(data);
-  // })
+postGoals(data){
+  axios.post('/goals', data)
+}
+
+getGoalById(id){
+  axios.get('/' + id)
+  .then((data) => {
+    console.log(data)
+  })
 }
 
 render() {
@@ -37,6 +40,7 @@ render() {
   <div>
     <h1>Goalposts</h1>
     <button onClick = {this.getGoals} />
+    <button onClick = {this.postGoals} />
     <Goals />
     <GoalsForm postGoals = {this.postGoals}/>
   </div>

@@ -17,11 +17,10 @@ Goal.findAllByUser().then(function(data){
 })
 
 router.post('/', function(req, res){
-Goal.AddNewGoal('do well', 'be awesome').then(function(data){
+Goal.AddNewGoal(req.body.goal, req.body.description).then(function(data){
   console.log(data);
           res.end()
 })
-  console.log("hit")
 })
 
 router.get('/:id', function(req, res){

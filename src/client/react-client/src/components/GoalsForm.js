@@ -2,35 +2,39 @@ import React, {Component} from 'react';
 class GoalForm extends Component {
     constructor(props){
         super(props);
-
         this.state = {
-            currentSearched: '',
-            currentDescription: ''
+          goal: '',
+          description: ''
         }
-
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleGoal = this.handleGoal.bind(this);
+        this.handleDescription = this.handleDescription.bind(this);
     }
+
+handleSubmit(e){
+e.preventDefault()
+this.props.postGoals(this.state);
+}
+
+handleGoal(e){
+  this.setState({
+    goal: e.target.value
+  })
+}
+
+handleDescription(e){
+  this.setState({
+    description: e.target.value
+  })
+}
+
   render() {
     return (
-      <form name="goal-form">
-        <input type = "text" onChange = {(e => {
-          this.setState({
-            currentSearched: e.target.value
-          })
-        })}/>
-        <input type = "text" onChange = {(e => {
-          this.setState({
-            currentDescription: e.target.value
-          })
-        })}/>
-        <button onClick = {(e => {
-          var goal = {
-            goal: this.state.currentSearched,
-            description: this.state.currentDescription
-          }
-          if(e.key === "Enter"){
-            this.props.postGoals(goal);
-          }
-        })}>Click Here</button>
+      <form name="goal-form" onSubmit = {this.handleSubmit}>
+        <input type = "text" onChange = {this.handleGoal} />
+        <input type = "text" onChange = {this.handleDescription}/>
+        <input type="submit" value="Submit" />
+
         </form>
     )
 }
