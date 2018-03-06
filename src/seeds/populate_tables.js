@@ -6,7 +6,7 @@ exports.seed = function(knex, Promise) {
 
     // Insert seed entries
     knex('users').insert({username: 'alice', password: 'alice'}), // :(
-    knex('users').insert({username: 'bob', password: 'bob'}),
+    knex('users').insert({username: 'bob', password: 'bob'})
 
     // TODO: INSERT DATA INTO TABLES
   );
