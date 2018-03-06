@@ -33,13 +33,14 @@ Goal.updateById = function(id, complete) {
 }; 
 
 Goal.findAllByUser = function(username) {
-    return db('goals').select("*").where({usersid : "users.id"})
+    return db('goals').select("*")
       .then(function(goal) {
       return goal;
     })
     .catch(function(err) {
       console.error(err)
     });
+    // .where({usersid : "users.id"})
 }
 
 

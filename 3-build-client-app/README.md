@@ -36,10 +36,10 @@ NOTE: Avoid spending any time on styling. Your goal is to create a functioning a
 
 ### Bare Minimum Requirements
 
-- [ ] Explore the client directory and get familiar with what each file is responsible for
+- [x] Explore the client directory and get familiar with what each file is responsible for
   - Add import/exports wherever necessary
-- [ ] Convert the app component to a stateful component
-  - [ ] Write any methods you need to sync data between components, app, and the server
+- [x] Convert the app component to a stateful component
+  - [x] Write any methods you need to sync data between components, app, and the server
 - [ ] Build out the following components:
   - [ ] A Goals list-view
   - [ ] A new Goals form

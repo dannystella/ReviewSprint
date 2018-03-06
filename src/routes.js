@@ -11,7 +11,7 @@ router.use(bodyParser.json())
 
 router.get('/', function(req, res){
 Goal.findAllByUser().then(function(data){
-  console.log(data);
+  res.send(data);
 })
   console.log("hit")
 })
