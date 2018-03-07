@@ -20,6 +20,7 @@ class App extends Component {
     this.postGoals = this.postGoals.bind(this);
     this.getGoalById = this.getGoalById.bind(this);
     this.listTrigger = this.listTrigger.bind(this);
+    this.click = this.click.bind(this);
     }
 listTrigger(){
   var flag = this.state.listTrigger;
@@ -35,6 +36,8 @@ getGoals(){
   .then((data) => {
     this.setState({
       currentGoalList: data.data
+    }, function(){
+      this.listTrigger();
     })
   })
 }
@@ -48,14 +51,15 @@ getGoalById(id){
   .then((data) => {
     this.setState({
       currentDetail: data.data[0]
+    }, function(){
+      console.log(this.state.currentDetail)
     })
   })
 }
 
 click(){
-  console.log("fuck")
-  // this.getGoals();
-  this.listTrigger();
+  this.getGoals();
+console.log("yo")
 }
 
 
@@ -66,9 +70,11 @@ render() {
     <Search getGoalById = {this.getGoalById} />
     <button onClick = {this.click}>Retrieve Goals</button>
     {this.state.listTrigger && <Goals currentGoalList = {this.state.currentGoalList} />}
+    {/*<Goals currentGoalList = {this.state.currentGoalList} />*/}
     <GoalsForm postGoals = {this.postGoals}/>
   </div>
   )
 };
     }
 ReactDOM.render(<App/>, document.getElementById('app'));
+

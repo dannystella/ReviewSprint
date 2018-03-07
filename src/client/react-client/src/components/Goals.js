@@ -6,7 +6,7 @@ const Goals = (props) => {
       <h1>My Goals</h1>
 
       <ol>
-        {this.props.currentGoalsList.map((item, i) => {
+        {props.currentGoalList.map((item, i) => {
           return <li>{item.goal}</li> 
         })}
       </ol>
