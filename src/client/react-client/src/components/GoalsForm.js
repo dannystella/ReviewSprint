@@ -14,6 +14,11 @@ class GoalForm extends Component {
 handleSubmit(e){
 e.preventDefault()
 this.props.postGoals(this.state);
+// this.setState({
+//   goal: '',
+//   description: ''
+// })'
+e.target.reset()
 }
 
 handleGoal(e){
@@ -31,8 +36,8 @@ handleDescription(e){
   render() {
     return (
       <form name="goal-form" onSubmit = {this.handleSubmit}>
-        <input type = "text" onChange = {this.handleGoal} />
-        <input type = "text" onChange = {this.handleDescription}/>
+        <input type = "text" placeholder = "Goal Name" onChange = {this.handleGoal} />
+        <input type = "text" placeholder = "Goal Details" onChange = {this.handleDescription}/>
         <input type="submit" value="Submit" />
 
         </form>

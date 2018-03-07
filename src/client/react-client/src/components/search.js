@@ -12,14 +12,17 @@ class Search extends Component {
 
   render() {
     return (
-        <input placeholder = "Search a Goal" type = "text" onChange = {(e => {
+        <input placeholder = "Search a Goal" type = "text" value = {this.state.currentSearched} onChange = {(e => {
             this.setState({
                 currentSearched: e.target.value
             })
 
         })}  onKeyPress = {(e) => {
             if(e.key === "Enter"){
-                this.props.getGoalById(e.target.value);
+            this.props.getGoalById(e.target.value);
+            this.setState({
+                currentSearched: ''
+            })
             }
         } }/>
     )

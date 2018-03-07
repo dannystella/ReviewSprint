@@ -1,0 +1,12 @@
+body {
+  text-align: center;
+  width: 100%
+}
+
+.left {
+  padding-right: 20px
+}
+
+.lright {
+  padding-left: 20px
+}

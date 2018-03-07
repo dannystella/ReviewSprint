@@ -41,10 +41,10 @@ NOTE: Avoid spending any time on styling. Your goal is to create a functioning a
 - [x] Convert the app component to a stateful component
   - [x] Write any methods you need to sync data between components, app, and the server
 - [x] Build out the following components:
-  - [ ] A Goals list-view
-  - [ ] A new Goals form
-  - [ ] A Goal Detail view which shows the details of a particular goal (this could be a separate page of just a modal)
-- [ ] Incorporate a router (this will include installing dependencies)
+  - [x] A Goals list-view
+  - [x] A new Goals form
+  - [x] A Goal Detail view which shows the details of a particular goal (this could be a separate page of just a modal)
+- [x] Incorporate a router (this will include installing dependencies)
 
 ### Tips:
 
