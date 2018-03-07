@@ -7,7 +7,7 @@ In this final section you will use JWTs to implement a full-stack authentication
 ## Bare Minimum Requirements
 
 - [ ] [Angular] Uncomment and read the authentication code in client/app.js
-- [ ] [React] Write helper functions to check for authentication when a route loads 
+- [x] [React] Write helper functions to check for authentication when a route loads 
   - You will need to use the React-Router-provided `.push` method to navigate away from an unauthorized view when components load
   - You will also need to update all the AJAX requests in the client to send the token to the server. 
 - [ ] In routes.js, convert the pseudocode in the authentication routes into working code

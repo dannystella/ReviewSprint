@@ -3,8 +3,10 @@ var jwt = require('jwt-simple'); // for encoding and decoding tokens
 var bodyParser = require('body-parser');
 
 
+var AuthMethods = require('./auth.js').AuthMethods
 var User = require('./models/user.js')
 var Goal = require('./models/goal.js')
+console.log(AuthMethods)
 // TODO: ATTACH ROUTE HANDLERS
   // See 2-complete-routes/README.md for which routes you should implement first.
 router.use(bodyParser.json())
@@ -46,7 +48,7 @@ Goal.updateById(req.body.id, req.body.complete).then(function(data){
 router.post('/signup', function() {
   var username = req.body.username;
   var password = req.body.password;
-
+  User.AddNewUser(username, password); 
   // TODO: Complete the signup functionality:
     // Search for username
     // If taken, send a 409 status code
@@ -57,7 +59,7 @@ router.post('/signup', function() {
 router.post('/login', function() {
   var username = req.body.username;
   var password = req.body.password;
-
+  User.findByUsername(username, password); 
   // TODO: Complete the login functionality:
     // Search for username
     // If not found, send back a 401 status code
