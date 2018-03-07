@@ -32,7 +32,8 @@ class App extends Component {
     this.listTrigger = this.listTrigger.bind(this);
     this.click = this.click.bind(this);
     this.handleDetailRender = this.handleDetailRender.bind(this);
-
+    this.changeComplete = this.changeComplete.bind(this);
+    this.updateGoals = this.updateGoals.bind(this);
   }
   
 
@@ -50,6 +51,7 @@ listTrigger(){
 getGoals(){
   axios.get('/goals')
   .then((data) => {
+    console.log("getGoals", data.data)
     this.setState({
       currentGoalList: data.data
     }, function(){
@@ -60,6 +62,19 @@ getGoals(){
   })
 }
 
+updateGoals(){
+  axios.get('/goals')
+  .then((data) => {
+    console.log("updateGoals",data.data)
+    this.setState({
+      currentGoalList: data.data
+    })
+  }).catch((err) => {
+    console.log(err);
+  })
+}
+
+
 handleDetailRender(){
   if(this.state.currentDetail !== null || this.state.currentDetail !== undefined){
       this.setState({
@@ -68,9 +83,27 @@ handleDetailRender(){
   }
 }
 
+changeComplete(item){
+  var flag = !item.complete;
+  var id = item.id;
+  console.log("axios triggered")
+  var bod = {
+    id: id,
+    complete: flag
+  }
+  axios.post('/goals/update', bod)
+  .then(() => {
+    console.log("posted")
+    this.updateGoals();
+  })
+  //
+}
 
 postGoals(data){
   axios.post('/goals', data)
+  .then(() => {
+    this.updateGoals();
+  })
 }
 
 getGoalById(id){
@@ -100,8 +133,10 @@ render() {
   <div>
     <HashRouter>
     <div>    
+      <div className = "navbar">
      <NavLink className = "left" to="/">Home View</NavLink>     
      <NavLink className = "right"  to="/detail">Detail View</NavLink> 
+     </div>
     <Route path="/detail" render={() => (
     <GoalDetail detailTrigger = {this.state.detailTrigger} currentDetail = {this.state.currentDetail} />
   )} />
@@ -111,8 +146,9 @@ render() {
     
     <Search getGoalById = {this.getGoalById} />
     <button onClick = {this.click}>Retrieve Goals</button>
-    {this.state.listTrigger && <Goals currentGoalList = {this.state.currentGoalList} />}
     <GoalsForm postGoals = {this.postGoals}/>
+    {this.state.listTrigger && <Goals changeComplete = {this.changeComplete} getGoalById = {this.getGoalById} currentGoalList = {this.state.currentGoalList} />}
+    
 
 
   </div>

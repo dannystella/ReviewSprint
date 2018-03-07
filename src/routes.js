@@ -32,7 +32,13 @@ Goal.findById(id).then(function(data){
 })
 
 
-
+router.post('/update', function(req, res){
+  console.log(req.body)
+Goal.updateById(req.body.id, req.body.complete).then(function(data){
+  console.log(data);
+          res.end()
+})
+})
 
 
 

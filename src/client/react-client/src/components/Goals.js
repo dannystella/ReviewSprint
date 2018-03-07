@@ -5,9 +5,14 @@ const Goals = (props) => {
     <div id="goals">
       <h1>My Goals</h1>
 
-      <ol>
+      <ol className = "list-group">
         {props.currentGoalList.map((item, i) => {
-          return <li>{item.goal}</li> 
+          return <li className = "list-group-item" onClick = {(e => {
+              props.getGoalById(item.id);
+            })}>{item.goal}  <button id="checkBox"onClick = {(e => {
+              {/*item.complete = !item.complete;*/}
+              props.changeComplete(item);
+            })}> Done? </button></li> 
         })}
       </ol>
 
