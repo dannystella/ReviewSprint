@@ -26,7 +26,7 @@ Goal.AddNewGoal(req.body.goal, req.body.description).then(function(data){
 router.get('/:id', function(req, res){
   var id = req.params.id;
 Goal.findById(id).then(function(data){
-  console.log(data);
+  res.send(data);
 })
   console.log("hit")
 })

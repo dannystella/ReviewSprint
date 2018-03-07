@@ -6,11 +6,9 @@ const Goals = (props) => {
       <h1>My Goals</h1>
 
       <ol>
-        {/*
-        TODO:
-          - Show the users goals here
-          - Each Goal should be accompanied by a "Complete Goal" button
-        */}
+        {this.props.currentGoalsList.map((item, i) => {
+          return <li>{item.goal}</li> 
+        })}
       </ol>
 
     </div>

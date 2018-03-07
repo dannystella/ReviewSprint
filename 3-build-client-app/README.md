@@ -40,7 +40,7 @@ NOTE: Avoid spending any time on styling. Your goal is to create a functioning a
   - Add import/exports wherever necessary
 - [x] Convert the app component to a stateful component
   - [x] Write any methods you need to sync data between components, app, and the server
-- [ ] Build out the following components:
+- [x] Build out the following components:
   - [ ] A Goals list-view
   - [ ] A new Goals form
   - [ ] A Goal Detail view which shows the details of a particular goal (this could be a separate page of just a modal)
