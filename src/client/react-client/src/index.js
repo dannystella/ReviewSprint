@@ -10,9 +10,10 @@ import {
 
 import Goals from './components/Goals.js';
 import GoalsForm from './components/GoalsForm.js';
-import Search from './components/Search.js'
-import GoalDetail from './components/goaldetail.js'
-
+import Search from './components/Search.js';
+import GoalDetail from './components/goaldetail.js';
+import Login from './login';
+import RegisterForm from './register';
 
 
 class App extends Component {
@@ -100,6 +101,10 @@ changeComplete(item){
 }
 
 postGoals(data){
+  if(data.goal === '' || data.description === ''){
+    console.log("nope");
+    return;
+  }
   axios.post('/goals', data)
   .then(() => {
     this.updateGoals();
@@ -127,28 +132,43 @@ click(){
 console.log("yo")
 }
 
+renderHome(){
+
+}
+
 
 render() {
   return (
   <div>
     <HashRouter>
     <div>    
-      <div className = "navbar">
-     <NavLink className = "left" to="/">Home View</NavLink>     
-     <NavLink className = "right"  to="/detail">Detail View</NavLink> 
+     <div className = "navbar">
+     <NavLink className = "left" to="/home">Home View</NavLink>    
+     <NavLink to="/login">Login</NavLink> 
+     <NavLink to="/register">Register</NavLink> 
+     <NavLink className = "right"  to="/home/detail">Detail View</NavLink> 
      </div>
-    <Route path="/detail" render={() => (
+    <Route path="/home/detail" render={() => (
     <GoalDetail detailTrigger = {this.state.detailTrigger} currentDetail = {this.state.currentDetail} />
   )} />
-    </div>
-    </HashRouter>    
+      <Route path="/login" render={() => (
+    <Login/>
+  )} />
+        <Route path="/register" render={() => (
+    <RegisterForm/>
+  )} />
+        <Route path="/home" render={() => (
+    <div>
     <h1>Goalposts</h1>
     
     <Search getGoalById = {this.getGoalById} />
     <button onClick = {this.click}>Retrieve Goals</button>
     <GoalsForm postGoals = {this.postGoals}/>
-    {this.state.listTrigger && <Goals changeComplete = {this.changeComplete} getGoalById = {this.getGoalById} currentGoalList = {this.state.currentGoalList} />}
-    
+    {this.state.listTrigger && <Goals changeComplete = {this.changeComplete} getGoalById = {this.getGoalById} currentGoalList = {this.state.currentGoalList} />}      
+      </div>
+  )} />
+    </div>
+    </HashRouter>    
 
 
   </div>

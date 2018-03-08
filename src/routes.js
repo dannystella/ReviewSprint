@@ -2,7 +2,6 @@ var router = require('express').Router();
 var jwt = require('jwt-simple'); // for encoding and decoding tokens
 var bodyParser = require('body-parser');
 
-
 var AuthMethods = require('./auth.js').AuthMethods
 var User = require('./models/user.js')
 var Goal = require('./models/goal.js')

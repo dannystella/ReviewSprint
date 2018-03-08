@@ -43,4 +43,4 @@ var RegisterForm = React.createClass({
     }
 });
 
-ReactDOM.render(<RegisterForm />, document.getElementById('registerForm'));
+export default RegisterForm
