@@ -2,13 +2,28 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios'
+import decode from 'jwt-simple'
 
-var RegisterForm = React.createClass({
-    handleSubmit: function(e) {
+class RegisterForm extends Component {
+
+    constructor(props){
+    super(props);
+
+    this.state = {
+        username: '',
+        password: ''
+    }
+this.handleUsername = this.handleUsername.bind(this);
+this.handlePassword = this.handlePassword.bind(this);
+this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+handleSubmit(e) {
         e.preventDefault();
-
-		var username = this.refs.email.value.trim();
-		var password = this.refs.password.value.trim();
+        console.log(this.state)
+        
+        var username = this.state.username.trim();
+		var password = this.state.password.trim();
         var data = {username: username, password: password}
 
         // form validation goes here
@@ -16,31 +31,46 @@ var RegisterForm = React.createClass({
           return;
         }
         //request to server
-        axios.post('signup', data)
+        axios.post('/goals/signup', data)
         .then((data) => {
             console.log(data);
-            var token = data.token;
-            var decoded = jwt_decode(_token);
-            console.log(decoded);
+            // var token = data.token;
+            // var decoded = jwt_decode(token);
+            // console.log(decoded);
         }).catch((err) => {
             console.log(err);
         })
 
         console.log('form submitted!');
 
-        this.refs.username.value = '';
-        this.refs.password.value = '';
+        // this.setState({
+        //  username: '',
+        //  password: ''           
+        // })
         return;
-    },
+}
+
+
+
+handleUsername(e){
+  this.setState({
+    username: e.target.value
+  })
+}
+
+handlePassword(e){
+  this.setState({
+    password: e.target.value
+  })
+}
     render(){
         return (
             <form onSubmit = {this.handleSubmit}>
-                <input type='username' placeholder='Username' className='form-control' />
-                <input type='password'  placeholder='Password' className='form-control' />
-                <input type='submit' className='btn btn-primary' value='Register' />
+                <input type='username' placeholder='Username' onChange = {this.handleUsername}  />
+                <input type='password'  placeholder='Password'  onChange = {this.handlePassword}  />
+                <input type='submit' className='btn btn-primary' value='Submit' />
             </form>
         );
     }
-});
-
+}
 export default RegisterForm

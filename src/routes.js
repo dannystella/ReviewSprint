@@ -5,23 +5,23 @@ var bodyParser = require('body-parser');
 var AuthMethods = require('./auth.js').AuthMethods
 var User = require('./models/user.js')
 var Goal = require('./models/goal.js')
-console.log(AuthMethods)
+// console.log(AuthMethods)
 // TODO: ATTACH ROUTE HANDLERS
   // See 2-complete-routes/README.md for which routes you should implement first.
 router.use(bodyParser.json())
 
 router.get('/', function(req, res){
-Goal.findAllByUser().then(function(data){
-  res.send(data);
-})
-  console.log("hit")
+  Goal.findAllByUser().then(function(data){
+    res.send(data);
+  })
+    console.log("hit")
 })
 
 router.post('/', function(req, res){
-Goal.AddNewGoal(req.body.goal, req.body.description).then(function(data){
-  console.log(data);
-          res.end()
-})
+  Goal.AddNewGoal(req.body.goal, req.body.description).then(function(data){
+    console.log(data);
+            res.end()
+  })
 })
 
 router.get('/:id', function(req, res){
@@ -44,10 +44,22 @@ Goal.updateById(req.body.id, req.body.complete).then(function(data){
 
 
 
-router.post('/signup', function() {
+router.post('/signup', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
-  User.AddNewUser(username, password); 
+  // console.log(username, password)
+
+  User.findByUsername(username)
+  .then(function(data){
+    if(data.length > 0){
+      res.sendStatus(409)
+    } else {
+      AuthMethods.hashPassword(password, function(hash){
+        User.AddNewUser(username, hash); 
+        res.sendStatus(201)
+      })
+    }
+  })
   // TODO: Complete the signup functionality:
     // Search for username
     // If taken, send a 409 status code
@@ -55,10 +67,27 @@ router.post('/signup', function() {
       // Send back a 201
 });
 
-router.post('/login', function() {
+router.post('/login', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
-  User.findByUsername(username, password); 
+  User.findByUsername(username)
+  .then(function(data){
+    if(data.length === 0){
+      res.sendStatus(401);
+    } else {
+      AuthMethods.comparePassword(password, data[0].password, function(isMatch){
+        if(isMatch === true){
+          var payload = {"userId": data[0].id}
+          var secret = 'fe1a1915a379f3be5394b64d14794932'
+          var token = jwt.encode(payload, secret);
+          res.send(token);          
+        } else {
+          res.sendStatus(401);
+        }
+      })
+
+    }
+  });
   // TODO: Complete the login functionality:
     // Search for username
     // If not found, send back a 401 status code
