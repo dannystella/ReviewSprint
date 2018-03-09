@@ -43,7 +43,9 @@ router.post('/', function(req, res){
 })
 
 router.get('/:id', function(req, res){
+  console.log(req.params)
   var id = req.params.id;
+  Goal.addCount(id);
   Goal.findById(id).then(function(data){
     res.send(data);
   })

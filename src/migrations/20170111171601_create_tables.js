@@ -11,6 +11,7 @@ exports.up = function(knex, Promise) {
     table.string('description');
     table.boolean('complete');
     table.integer('newuserid');
+    table.integer('count');
     // TODO: DESCRIBE THE USER TABLE
   })
   ])

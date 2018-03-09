@@ -14,7 +14,7 @@ import Search from './components/Search.js';
 import GoalDetail from './components/goaldetail.js';
 import Login from './login';
 import RegisterForm from './register';
-
+import Logout from './logout';
 
 class App extends Component {
     constructor(props){
@@ -37,6 +37,7 @@ class App extends Component {
     this.changeComplete = this.changeComplete.bind(this);
     this.updateGoals = this.updateGoals.bind(this);
     this.setToken = this.setToken.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
   
 
@@ -76,7 +77,6 @@ updateGoals() {
     }
   })
   .then((data) => {
-    console.log("updateGoals",data.data)
     this.setState({
       currentGoalList: data.data
     })
@@ -101,12 +101,11 @@ changeComplete(item) {
   var bod = {
     id: id,
     complete: flag,
-
+    token: localStorage.token
 
   }
   axios.post('/goals/update', bod)
   .then(() => {
-    console.log("posted")
     this.updateGoals();
   })
   //
@@ -147,6 +146,10 @@ localStorage.setItem('token', token)
    console.log(localStorage) 
 }
 
+logOut(){
+  localStorage.setItem('token', '') ;
+  console.log(localStorage)
+}
 
 click(){
   this.getGoals();
@@ -166,6 +169,7 @@ render() {
      <div className = "navbar">
      <NavLink className = "left" to="/home">Home View</NavLink>    
      <NavLink to="/login">Login</NavLink> 
+     <NavLink to="/logout">Logout</NavLink> 
      <NavLink to="/register">Register</NavLink> 
      <NavLink className = "right"  to="/home/detail">Detail View</NavLink> 
      </div>
@@ -174,6 +178,9 @@ render() {
   )} />
       <Route path="/login" render={() => (
     <Login setToken = {this.setToken} token = {this.state.token} />
+  )} />
+      <Route path="/logout" render={() => (
+    <Logout logout = {this.logOut} /> 
   )} />
         <Route path="/register" render={() => (
     <RegisterForm setToken = {this.setToken} token = {this.state.token}/>

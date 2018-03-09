@@ -3,8 +3,7 @@ var db = require('./db');
 var Goal = {};
 
 Goal.AddNewGoal = function(goal, description, newuserid) {
-  console.log("inside add new goal", newuserid)
-  return db('goals').insert({ goal: goal, description: description, complete: false, newuserid: newuserid})
+  return db('goals').insert({ goal: goal, description: description, complete: false, newuserid: newuserid, count: 0})
     .then(function(goal) {
       console.log("not logging", goal);
     })
@@ -44,5 +43,11 @@ Goal.findAllByUser = function(username) {
     // .where({usersid : "users.id"})
 }
 
+Goal.addCount = function(id, newuserid) {
+  var object = db('goals').where({id: id, newuserid: newuserid});
+  // console.log(object);
+  // object.object.count+=1;
+  // console.log(object.count);
+}
 
 module.exports = Goal;
