@@ -15,6 +15,10 @@ li {
   cursor: pointer;
 }
 
+list-group-item :hover {
+background-color: grey;
+}
+
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
 .center{

@@ -43,12 +43,17 @@ router.post('/', function(req, res){
 })
 
 router.get('/:id', function(req, res){
-  console.log(req.params)
   var id = req.params.id;
-  Goal.addCount(id);
   Goal.findById(id).then(function(data){
-    res.send(data);
+    var count = data[0].count +1;
+    Goal.addCount(count, id).then(function(data2){
+          res.send(data);
+    });
+
   })
+  // });
+  // Goal.addCount(id);
+
 })
 
 
@@ -95,7 +100,6 @@ router.post('/login', function(req, res) {
         if(isMatch === true){
           var payload = {"userId": data[0].id}
           var token = jwt.encode(payload, secret);
-          // console.log(token)
           res.send(token);          
         } else {
           res.sendStatus(401);

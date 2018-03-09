@@ -10,11 +10,10 @@ import {
 
 import Goals from './components/Goals.js';
 import GoalsForm from './components/GoalsForm.js';
-import Search from './components/Search.js';
 import GoalDetail from './components/goaldetail.js';
-import Login from './login';
-import RegisterForm from './register';
-import Logout from './logout';
+import Login from './components/login';
+import RegisterForm from './components/register';
+import Logout from './components/logout';
 
 class App extends Component {
     constructor(props){
@@ -60,8 +59,13 @@ getGoals() {
     }
   })
   .then((data) => {
+    console.log(data);
+    var newData = data.data.sort(function(a, b){
+      return b.count - a.count;
+    })
+    console.log(newData)
     this.setState({
-      currentGoalList: data.data
+      currentGoalList: newData
     }, function(){
       this.listTrigger();
     })
@@ -77,8 +81,11 @@ updateGoals() {
     }
   })
   .then((data) => {
+    var newData = data.data.sort(function(a, b){
+      return b.count - a.count;
+    })
     this.setState({
-      currentGoalList: data.data
+      currentGoalList: newData
     })
   }).catch((err) => {
     console.log(err);
@@ -125,7 +132,10 @@ postGoals(data) {
 }
 
 getGoalById(id) {
-  axios.get('/goals/' + id)
+  axios.get('/goals/' + id,{
+    params: {
+      token: localStorage.token
+    }})
   .then((data) => {
     if(data.data[0] === undefined){
       return;
@@ -148,6 +158,7 @@ localStorage.setItem('token', token)
 
 logOut(){
   localStorage.setItem('token', '') ;
+  this.updateGoals();
   console.log(localStorage)
 }
 
@@ -189,7 +200,6 @@ render() {
     <div>
     <h1>Goalposts</h1>
     
-    <Search getGoalById = {this.getGoalById} />
     <button onClick = {this.click}>Retrieve Goals</button>
     <GoalsForm postGoals = {this.postGoals}/>
     {this.state.listTrigger && <Goals changeComplete = {this.changeComplete} getGoalById = {this.getGoalById} currentGoalList = {this.state.currentGoalList} />}      

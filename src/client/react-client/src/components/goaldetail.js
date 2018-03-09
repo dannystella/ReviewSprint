@@ -10,9 +10,8 @@ class GoalDetail extends Component {
 
 
   render() {
-      console.log(this.props.detailTrigger, this.props.currentDetail.complete);
     return (
-        <div>
+        <div className = "jumbotron">
         <h1 className = "list-group-item-heading">Goal detail</h1>    
         <h4>Goal: {this.props.detailTrigger && this.props.currentDetail.goal}</h4>
         <p>Description: {this.props.detailTrigger && this.props.currentDetail.description}</p>

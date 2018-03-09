@@ -35,12 +35,14 @@ handleDescription(e){
 
   render() {
     return (
-      <form name="goal-form" onSubmit = {this.handleSubmit}>
-        <input type = "text" placeholder = "Goal Name" onChange = {this.handleGoal} />
-        <input type = "text" placeholder = "Goal Details" onChange = {this.handleDescription}/>
-        <input type="submit" value="Submit" />
+      <div className = "form-group">
+        <form name="goal-form" onSubmit = {this.handleSubmit}>
+          <input type = "text" placeholder = "Goal Name" onChange = {this.handleGoal} />
+          <input type = "text" placeholder = "Goal Details" onChange = {this.handleDescription}/>
+          <input type="submit" value="Submit" />
 
         </form>
+      </div>
     )
 }
 }

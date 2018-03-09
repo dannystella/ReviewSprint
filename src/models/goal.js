@@ -43,9 +43,12 @@ Goal.findAllByUser = function(username) {
     // .where({usersid : "users.id"})
 }
 
-Goal.addCount = function(id, newuserid) {
-  var object = db('goals').where({id: id, newuserid: newuserid});
-  // console.log(object);
+Goal.addCount = function(count, id) {
+  return db('goals').where({id: id}).update({count: count})
+    .then(function(data){
+      // console.log(data);
+    })
+
   // object.object.count+=1;
   // console.log(object.count);
 }
