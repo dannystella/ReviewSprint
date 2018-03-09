@@ -32,7 +32,8 @@ class Login extends Component {
         //request to server
         axios.post('/goals/login', data)
         .then((data) => {
-            console.log(data);
+            this.props.setToken(data.data);
+            
             // var token = data.token;
             // var decoded = jwt_decode(token);
             // console.log(decoded);

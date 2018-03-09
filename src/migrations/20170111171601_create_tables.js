@@ -10,7 +10,7 @@ exports.up = function(knex, Promise) {
     table.string('goal');
     table.string('description');
     table.boolean('complete');
-    table.integer('userid').references('users.id')
+    table.integer('newuserid');
     // TODO: DESCRIBE THE USER TABLE
   })
   ])

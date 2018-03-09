@@ -12,6 +12,18 @@ User.findByUsername = function(username) {
     });
 };
 
+User.findById = function(id) {
+  console.log("methods",id)
+  return db('goals').where({ newuserid: id }).select('*')
+    .then(function(user) {
+      console.log("methods", user)
+      return user;
+    })
+    .catch(function(err) {
+      console.error(err)
+    });
+};
+
 User.AddNewUser = function(username, password) {
   return db('users').insert({ username: username, password: password })
     .then(function(user) {

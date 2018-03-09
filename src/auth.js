@@ -1,5 +1,6 @@
-var bcrypt = require('bcrypt'),
-q = require('q');
+var bcrypt = require('bcrypt');
+var jwt = require('jwt-simple'); 
+
 
 
 var AuthMethods = {};
@@ -19,6 +20,10 @@ AuthMethods.hashPassword = function(password, cb){
     bcrypt.hash(password, 10, function(err, hash){
         cb(hash);
     })
+}
+
+AuthMethods.decode = function(token, secret,cb) {
+    cb(jwt.decode(token, secret));
 }
 
 module.exports.AuthMethods = AuthMethods;

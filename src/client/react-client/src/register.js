@@ -11,7 +11,8 @@ class RegisterForm extends Component {
 
     this.state = {
         username: '',
-        password: ''
+        password: '',
+        token: ''
     }
 this.handleUsername = this.handleUsername.bind(this);
 this.handlePassword = this.handlePassword.bind(this);
@@ -33,7 +34,7 @@ handleSubmit(e) {
         //request to server
         axios.post('/goals/signup', data)
         .then((data) => {
-            console.log(data);
+            this.props.setToken(data.data);
             // var token = data.token;
             // var decoded = jwt_decode(token);
             // console.log(decoded);

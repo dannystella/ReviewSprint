@@ -25,7 +25,8 @@ class App extends Component {
           currentGoalList: [],
           currentDetail: {goal: "", description: "", complete: false },
           listTrigger: false,
-          detailTrigger: false  
+          detailTrigger: false,
+          token: ''  
         }
     this.getGoals = this.getGoals.bind(this);
     this.postGoals = this.postGoals.bind(this);
@@ -35,12 +36,13 @@ class App extends Component {
     this.handleDetailRender = this.handleDetailRender.bind(this);
     this.changeComplete = this.changeComplete.bind(this);
     this.updateGoals = this.updateGoals.bind(this);
+    this.setToken = this.setToken.bind(this);
   }
   
 
 
   
-listTrigger(){
+listTrigger() {
   var flag = this.state.listTrigger;
   if(this.state.currentGoalList.length > 0){
     this.setState({
@@ -49,10 +51,14 @@ listTrigger(){
   }
 }
 
-getGoals(){
-  axios.get('/goals')
+getGoals() {
+
+  axios.get('/goals', {
+    params: {
+      token: localStorage.token
+    }
+  })
   .then((data) => {
-    console.log("getGoals", data.data)
     this.setState({
       currentGoalList: data.data
     }, function(){
@@ -63,8 +69,12 @@ getGoals(){
   })
 }
 
-updateGoals(){
-  axios.get('/goals')
+updateGoals() {
+  axios.get('/goals', {
+    params: {
+      token: localStorage.token
+    }
+  })
   .then((data) => {
     console.log("updateGoals",data.data)
     this.setState({
@@ -76,7 +86,7 @@ updateGoals(){
 }
 
 
-handleDetailRender(){
+handleDetailRender() {
   if(this.state.currentDetail !== null || this.state.currentDetail !== undefined){
       this.setState({
           detailTrigger: true
@@ -84,13 +94,15 @@ handleDetailRender(){
   }
 }
 
-changeComplete(item){
+changeComplete(item) {
   var flag = !item.complete;
   var id = item.id;
   console.log("axios triggered")
   var bod = {
     id: id,
-    complete: flag
+    complete: flag,
+
+
   }
   axios.post('/goals/update', bod)
   .then(() => {
@@ -100,18 +112,20 @@ changeComplete(item){
   //
 }
 
-postGoals(data){
+postGoals(data) {
   if(data.goal === '' || data.description === ''){
     console.log("nope");
     return;
   }
+  data.token = localStorage.token
+  console.log(data);
   axios.post('/goals', data)
   .then(() => {
     this.updateGoals();
   })
 }
 
-getGoalById(id){
+getGoalById(id) {
   axios.get('/goals/' + id)
   .then((data) => {
     if(data.data[0] === undefined){
@@ -126,6 +140,13 @@ getGoalById(id){
     console.log(err);
   })
 }
+
+setToken(token){
+
+localStorage.setItem('token', token)
+   console.log(localStorage) 
+}
+
 
 click(){
   this.getGoals();
@@ -152,10 +173,10 @@ render() {
     <GoalDetail detailTrigger = {this.state.detailTrigger} currentDetail = {this.state.currentDetail} />
   )} />
       <Route path="/login" render={() => (
-    <Login/>
+    <Login setToken = {this.setToken} token = {this.state.token} />
   )} />
         <Route path="/register" render={() => (
-    <RegisterForm/>
+    <RegisterForm setToken = {this.setToken} token = {this.state.token}/>
   )} />
         <Route path="/home" render={() => (
     <div>

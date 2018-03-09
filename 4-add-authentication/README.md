@@ -10,8 +10,8 @@ In this final section you will use JWTs to implement a full-stack authentication
 - [x] [React] Write helper functions to check for authentication when a route loads 
   - You will need to use the React-Router-provided `.push` method to navigate away from an unauthorized view when components load
   - You will also need to update all the AJAX requests in the client to send the token to the server. 
-- [ ] In routes.js, convert the pseudocode in the authentication routes into working code
-- [ ] Update your previous Goal model and /goals routes to save Goals for a specific user
+- [x] In routes.js, convert the pseudocode in the authentication routes into working code
+- [x] Update your previous Goal model and /goals routes to save Goals for a specific user
   - Look at the documentation for [jwt-simple](https://www.npmjs.com/package/jwt-simple) to learn how to encode and decode JWTs
 
 ## Advanced Content
