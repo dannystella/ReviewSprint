@@ -10,7 +10,6 @@ Goal.AddNewGoal = function(goal, description, newuserid) {
     .catch(function(err) {
       console.error(err)
     });
-
 }
  
 Goal.findById = function(id) {
@@ -22,6 +21,7 @@ Goal.findById = function(id) {
       console.error(err)
     });
 }; 
+
 Goal.updateById = function(id, complete) {
   return db('goals').where({ id: id }).update({complete: complete})
     .then(function(goal) {
@@ -40,17 +40,12 @@ Goal.findAllByUser = function(username) {
     .catch(function(err) {
       console.error(err)
     });
-    // .where({usersid : "users.id"})
 }
 
 Goal.addCount = function(count, id) {
   return db('goals').where({id: id}).update({count: count})
     .then(function(data){
-      // console.log(data);
     })
-
-  // object.object.count+=1;
-  // console.log(object.count);
 }
 
 module.exports = Goal;

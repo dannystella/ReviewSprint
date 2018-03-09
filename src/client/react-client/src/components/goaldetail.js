@@ -8,7 +8,6 @@ class GoalDetail extends Component {
 
     }
 
-
   render() {
     return (
         <div className = "jumbotron">
@@ -18,6 +17,6 @@ class GoalDetail extends Component {
         <p>Complete: {this.props.detailTrigger && this.props.currentDetail.complete}</p>
         </div>
     )
-}
+  }
 }
 export default GoalDetail; 

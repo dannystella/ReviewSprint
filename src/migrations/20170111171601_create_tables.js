@@ -19,7 +19,7 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   // TODO: DROP OTHER TABLES
-return Promise.all([
-   knex.schema.dropTable('users').dropTable('goals')
-])
+  return Promise.all([
+    knex.schema.dropTable('users').dropTable('goals')
+  ])
 };

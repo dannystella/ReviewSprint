@@ -6,8 +6,8 @@ var jwt = require('jwt-simple');
 var AuthMethods = {};
 
 
-AuthMethods.comparePassword = function(password, hash, cb){
-    bcrypt.compare(password, hash, function(err, isMatch){
+AuthMethods.comparePassword = function(password, hash, cb) {
+    bcrypt.compare(password, hash, function(err, isMatch) {
         if(err){
             console.log(err);
         } else {
@@ -16,8 +16,8 @@ AuthMethods.comparePassword = function(password, hash, cb){
     })
 }   
 
-AuthMethods.hashPassword = function(password, cb){
-    bcrypt.hash(password, 10, function(err, hash){
+AuthMethods.hashPassword = function(password, cb) {
+    bcrypt.hash(password, 10, function(err, hash) {
         cb(hash);
     })
 }

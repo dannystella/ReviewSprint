@@ -27,6 +27,7 @@ class App extends Component {
           detailTrigger: false,
           token: ''  
         }
+
     this.getGoals = this.getGoals.bind(this);
     this.postGoals = this.postGoals.bind(this);
     this.getGoalById = this.getGoalById.bind(this);
@@ -38,8 +39,6 @@ class App extends Component {
     this.setToken = this.setToken.bind(this);
     this.logOut = this.logOut.bind(this);
   }
-  
-
 
   
 listTrigger() {
@@ -60,13 +59,12 @@ getGoals() {
   })
   .then((data) => {
     console.log(data);
-    var newData = data.data.sort(function(a, b){
+    var newData = data.data.sort(function(a, b) {
       return b.count - a.count;
     })
-    console.log(newData)
     this.setState({
       currentGoalList: newData
-    }, function(){
+    }, function() {
       this.listTrigger();
     })
   }).catch((err) => {
@@ -81,7 +79,7 @@ updateGoals() {
     }
   })
   .then((data) => {
-    var newData = data.data.sort(function(a, b){
+    var newData = data.data.sort(function(a, b) {
       return b.count - a.count;
     })
     this.setState({
@@ -91,7 +89,6 @@ updateGoals() {
     console.log(err);
   })
 }
-
 
 handleDetailRender() {
   if(this.state.currentDetail !== null || this.state.currentDetail !== undefined){
@@ -115,7 +112,6 @@ changeComplete(item) {
   .then(() => {
     this.updateGoals();
   })
-  //
 }
 
 postGoals(data) {
@@ -137,12 +133,12 @@ getGoalById(id) {
       token: localStorage.token
     }})
   .then((data) => {
-    if(data.data[0] === undefined){
+    if(data.data[0] === undefined) {
       return;
     }
     this.setState({
       currentDetail: data.data[0]
-    }, function(){
+    }, function() {
       this.handleDetailRender()
     })
   }).catch((err) => {
@@ -150,27 +146,21 @@ getGoalById(id) {
   })
 }
 
-setToken(token){
-
+setToken(token) {
 localStorage.setItem('token', token)
    console.log(localStorage) 
 }
 
-logOut(){
+logOut() {
   localStorage.setItem('token', '') ;
   this.updateGoals();
   console.log(localStorage)
 }
 
-click(){
+click() {
   this.getGoals();
 console.log("yo")
 }
-
-renderHome(){
-
-}
-
 
 render() {
   return (
@@ -199,7 +189,6 @@ render() {
         <Route path="/home" render={() => (
     <div>
     <h1>Goalposts</h1>
-    
     <button onClick = {this.click}>Retrieve Goals</button>
     <GoalsForm postGoals = {this.postGoals}/>
     {this.state.listTrigger && <Goals changeComplete = {this.changeComplete} getGoalById = {this.getGoalById} currentGoalList = {this.state.currentGoalList} />}      
@@ -207,11 +196,9 @@ render() {
   )} />
     </div>
     </HashRouter>    
-
-
   </div>
   )
-};
-    }
+  };
+}
 ReactDOM.render(<App/>, document.getElementById('app'));
 

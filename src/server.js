@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var Goals = require('./routes.js')
+var Goals = require('./routes.js');
 
 // console.log(Goals)
 var app = express();

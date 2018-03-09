@@ -15,49 +15,42 @@ const secret = 'fe1a1915a379f3be5394b64d14794932';
   // See 2-complete-routes/README.md for which routes you should implement first.
 router.use(bodyParser.json())
 
-router.get('/', function(req, res){
+router.get('/', function(req, res) {
   AuthMethods.decode(req.url.slice(8, req.url.length), secret, function(data){
     User.findById(data.userId)
     .then(function(data){
       res.send(data);
     })
   });
-  // User.findByUserName()
-  // Goal.findAllByUser().then(function(data){
-  //   res.send(data);
-  // })
+
 })
 
-router.post('/', function(req, res){
+router.post('/', function(req, res) {
   var newUserId;
   var token = req.body.token;
   
-  AuthMethods.decode(token, secret, function(data){
-    User.findById(data.userId).then(function(data1){
+  AuthMethods.decode(token, secret, function(data) {
+    User.findById(data.userId).then(function(data1) {
       newUserId = data.userId;
-      Goal.AddNewGoal(req.body.goal, req.body.description, newUserId).then(function(data){
-                res.end()
+      Goal.AddNewGoal(req.body.goal, req.body.description, newUserId).then(function(data) {
+        res.end()
       })
     })
   })
 })
 
-router.get('/:id', function(req, res){
+router.get('/:id', function(req, res) {
   var id = req.params.id;
-  Goal.findById(id).then(function(data){
+  Goal.findById(id).then(function(data) {
     var count = data[0].count +1;
     Goal.addCount(count, id).then(function(data2){
           res.send(data);
     });
-
   })
-  // });
-  // Goal.addCount(id);
-
 })
 
 
-router.post('/update', function(req, res){
+router.post('/update', function(req, res) {
   Goal.updateById(req.body.id, req.body.complete).then(function(data){
             res.end()
   })
@@ -71,11 +64,11 @@ router.post('/signup', function(req, res) {
   var password = req.body.password;
 
   User.findByUsername(username)
-  .then(function(data){
-    if(data.length > 0){
+  .then(function(data) {
+    if(data.length > 0) {
       res.sendStatus(409)
     } else {
-      AuthMethods.hashPassword(password, function(hash){
+      AuthMethods.hashPassword(password, function(hash) {
         User.AddNewUser(username, hash); 
         res.sendStatus(201)
       })
@@ -92,12 +85,12 @@ router.post('/login', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
   User.findByUsername(username)
-  .then(function(data){
-    if(data.length === 0){
+  .then(function(data) {
+    if(data.length === 0) {
       res.sendStatus(401);
     } else {
-      AuthMethods.comparePassword(password, data[0].password, function(isMatch){
-        if(isMatch === true){
+      AuthMethods.comparePassword(password, data[0].password, function(isMatch) {
+        if(isMatch === true) {
           var payload = {"userId": data[0].id}
           var token = jwt.encode(payload, secret);
           res.send(token);          
@@ -105,7 +98,6 @@ router.post('/login', function(req, res) {
           res.sendStatus(401);
         }
       })
-
     }
   });
   // TODO: Complete the login functionality:
