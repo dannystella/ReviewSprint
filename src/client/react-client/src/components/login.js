@@ -4,7 +4,7 @@ import decode from 'jwt-simple'
 
 
 class Login extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -25,37 +25,28 @@ class Login extends Component {
 		var password = this.state.password.trim();
         var data = {username: username, password: password}
 
-        // form validation goes here
         if (!username || !password) {
           return;
         }
-        //request to server
+
         axios.post('/goals/login', data)
         .then((data) => {
             this.props.setToken(data.data);
-            
-            // var token = data.token;
-            // var decoded = jwt_decode(token);
-            // console.log(decoded);
         }).catch((err) => {
             console.log(err);
         })
 
         console.log('form submitted!');
 
-        // this.setState({
-        //  username: '',
-        //  password: ''           
-        // })
         return;
 }
-handleUsername(e){
+handleUsername(e) {
   this.setState({
     username: e.target.value
   })
 }
 
-handlePassword(e){
+handlePassword(e) {
   this.setState({
     password: e.target.value
   })
